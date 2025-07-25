@@ -1,0 +1,57 @@
+# ------------------------------
+#  Existing Java-specific rules
+# ------------------------------
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# ------------------------------
+#  Additions for Maven + Spring Boot
+# ------------------------------
+
+# Maven target directory
+/target/
+
+# Eclipse and IntelliJ project files
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# IntelliJ build output
+/out/
+
+# Environment and sensitive files
+.env
+
+# OS-specific
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# VS Code settings (optional, if you use it)
+.vscode/
