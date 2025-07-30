@@ -24,9 +24,7 @@ public class UrlShortenerController {
             if (request.getOriginalUrl() == null || request.getOriginalUrl().trim().isEmpty()) {
                 return ResponseEntity.badRequest().build();
             }
-            
             UrlMapping urlMapping = urlShortenerService.createShortUrl(request.getOriginalUrl());
-
             String shortUrl = "http://localhost:8080/api/r/" + urlMapping.getShortCode();
 
             ShortUrlResponse response = new ShortUrlResponse(
