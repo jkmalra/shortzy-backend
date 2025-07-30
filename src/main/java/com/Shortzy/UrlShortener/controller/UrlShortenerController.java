@@ -10,40 +10,55 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class UrlShortenerController {
 
     private final UrlShortenerService urlShortenerService;
 
     @PostMapping("/shorten")
     public ResponseEntity<ShortUrlResponse> createShortUrl(@RequestBody UrlRequest request) {
-        UrlMapping urlMapping = urlShortenerService.createShortUrl(request.getOriginalUrl());
+        try {
+            if (request.getOriginalUrl() == null || request.getOriginalUrl().trim().isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+            
+            UrlMapping urlMapping = urlShortenerService.createShortUrl(request.getOriginalUrl());
 
-        String shortUrl = "http://localhost:8080/api/r/" + urlMapping.getShortCode();
+            String shortUrl = "http://localhost:8080/api/r/" + urlMapping.getShortCode();
 
-        ShortUrlResponse response = new ShortUrlResponse(
-                shortUrl,
-                urlMapping.getOriginalUrl(),
-                urlMapping.getClickCount(),
-                urlMapping.getCreatedAt()
-        );
-        return ResponseEntity.ok(response);
+            ShortUrlResponse response = new ShortUrlResponse(
+                    shortUrl,
+                    urlMapping.getOriginalUrl(),
+                    urlMapping.getClickCount(),
+                    urlMapping.getCreatedAt()
+            );
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping("/r/{shortCode}")
     public void redirectToOriginalUrl(@PathVariable String shortCode, HttpServletResponse response) throws IOException {
-        UrlMapping urlMapping = urlShortenerService.getUrlMappingByShortCode(shortCode);
-
-        urlShortenerService.incrementClickCount(urlMapping);
-
-        response.sendRedirect(urlMapping.getOriginalUrl());
+        try {
+            UrlMapping urlMapping = urlShortenerService.getUrlMappingByShortCode(shortCode);
+            urlShortenerService.incrementClickCount(urlMapping);
+            response.sendRedirect(urlMapping.getOriginalUrl());
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Short URL not found");
+        }
     }
+
     @GetMapping("/clicks/{shortCode}")
     public ResponseEntity<Integer> getClickCount(@PathVariable String shortCode) {
-        UrlMapping urlMapping = urlShortenerService.getUrlMappingByShortCode(shortCode);
-        return ResponseEntity.ok(urlMapping.getClickCount());
+        try {
+            UrlMapping urlMapping = urlShortenerService.getUrlMappingByShortCode(shortCode);
+            return ResponseEntity.ok(urlMapping.getClickCount());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

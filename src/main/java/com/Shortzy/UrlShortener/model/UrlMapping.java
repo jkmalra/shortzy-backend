@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -17,21 +18,21 @@ public class UrlMapping {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 2048) // maybe length is better for urls as text is not portable for db.
+    @Column(nullable = false)
     private String originalUrl;
 
-    @Column(unique = true, nullable = true)
+    @Column(unique = true, nullable = false)
     private String shortCode;
 
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
     private int clickCount = 0;
 
     public UrlMapping(String originalUrl, String shortCode) {
         this.originalUrl = originalUrl;
         this.shortCode = shortCode;
         this.createdAt = LocalDateTime.now();
+        this.clickCount = 0;
     }
 
     public void increaseClickCount(){
