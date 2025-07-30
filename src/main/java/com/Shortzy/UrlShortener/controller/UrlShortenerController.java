@@ -13,7 +13,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://jkmalra.github.io/Shortzy/")
+@CrossOrigin(origins = "*")
 public class UrlShortenerController {
 
     private final UrlShortenerService urlShortenerService;
