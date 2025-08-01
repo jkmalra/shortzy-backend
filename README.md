@@ -1,17 +1,34 @@
-# Shortzy - Cloud-Based URL Shortener
+# 🔗 Shortzy - Cloud-Based URL Shortener
 
-Shortzy is a Spring Boot-powered backend project that shortens long URLs into short, trackable links.
+Shortzy is a cloud-based URL shortener application built using Spring Boot and MySQL. It allows users to convert long URLs into short, easily shareable links. Fully deployed with a working frontend and backend.
 
-## 🚀 Features
+## Live Links
 
-- Generate short URLs for long links
-- Track click count
-- Store URL mapping with creation timestamp
+- 🔧 Backend API: [https://your-render-backend-url.com](https://your-render-backend-url.com)  
+- 🌐 Frontend App: [https://jkmalra.github.io/Shortzy](https://jkmalra.github.io/Shortzy)
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- Java 17
-- Spring Boot
-- Maven
-- MySQL
-- JPA + Hibernate
+- **Backend:** Spring Boot, Java, MySQL, Maven  
+- **Frontend:** HTML/CSS/JS (GitHub Pages)  
+- **Deployment:** Render (Backend), GitHub Pages (Frontend)  
+- **Tools:** Postman, Swagger (coming soon)
+
+## Features
+
+- ✅ Create short links for any valid URL  
+- ✅ Redirect from short link to original URL  
+- ✅ Persistent storage using MySQL  
+- ✅ Clean REST APIs (GET/POST)  
+- ✅ Environment variable support for DB configs  
+- 🔜 Swagger API docs  
+- 🔜 Click tracking (planned)
+
+## API Endpoints
+
+| Method | Endpoint       | Description              |
+| ------ | -------------- | ------------------------ |
+| POST   | `/shorten`     | Create a shortened URL   |
+| GET    | `/{shortCode}` | Redirect to original URL |
+
+J.K. Malra
