@@ -25,7 +25,7 @@ public class UrlShortenerController {
                 return ResponseEntity.badRequest().build();
             }
             UrlMapping urlMapping = urlShortenerService.createShortUrl(request.getOriginalUrl());
-            String shortUrl = "http://localhost:8080/api/r/" + urlMapping.getShortCode();
+            String shortUrl = "https://shortzy-backend.onrender.com/api/r/" + urlMapping.getShortCode();
 
             ShortUrlResponse response = new ShortUrlResponse(
                     shortUrl,
